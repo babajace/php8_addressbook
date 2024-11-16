@@ -6,10 +6,10 @@ $resultsnumber = 0;
 if ($id) {
 
    $sql = "SELECT * FROM $base_from_where AND $table.id='$id'";
-   $result = mysql_query($sql, $db);
-   $r = mysql_fetch_array($result);
+   $result = mysqli_query($db, $sql);
+   $r = mysqli_fetch_array($result);
 
-   $resultsnumber = mysql_numrows($result);
+   $resultsnumber = mysqli_num_rows($result);
 }
 
 if( ($resultsnumber == 0 && !isset($all)) || (!$id && !isset($all))) {
@@ -66,7 +66,7 @@ showOneEntry($r);
    include "include/view.w.php";
 
    $sql = "SELECT * FROM $base_from_where order by lastname, firstname";
-   $result = mysql_query($sql, $db);
+   $result = mysqli_query($db,$sql);
 
 	 $cnt = 0;
 	 echo "<h1>".ucfmsg('ADDRESS_BOOK').($group ? " ".msg('FOR')." <i>$group</i></h1>" : "</h1>");
@@ -79,7 +79,7 @@ showOneEntry($r);
 
    $addr_per_line  = ($only_phones ? 4 : 3);
    
-   while($r = mysql_fetch_array($result)) {
+   while($r = mysqli_fetch_array($result)) {
    	 $r = trimAll($r);   	
    	 $address = new Address($r);
    	 if($address->hasPhone() || !$only_phones) {
